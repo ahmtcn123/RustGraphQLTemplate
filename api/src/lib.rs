@@ -2,11 +2,13 @@ use std::env;
 
 use app_state::AppState;
 use axum::Router;
+use routes::root;
 use service::sea_orm::Database;
 
 mod app_state;
-mod routes;
+mod auth;
 mod gql;
+mod routes;
 
 #[tokio::main]
 async fn start() -> anyhow::Result<()> {
@@ -24,7 +26,7 @@ async fn start() -> anyhow::Result<()> {
         .expect("Database connection failed");
 
     let app_state = AppState { db_con };
-    let app = Router::new().with_state(app_state);
+    let app = Router::new().with_state(app_state).nest("/", root());
 
     let listener = tokio::net::TcpListener::bind(&server_url).await.unwrap();
     axum::serve(listener, app).await?;

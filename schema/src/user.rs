@@ -4,3 +4,4 @@ pub struct User {
     pub username: String,
     pub password: String, // In a real app, store hashed passwords
 }
+
