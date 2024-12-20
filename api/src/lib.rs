@@ -10,6 +10,8 @@ mod auth;
 mod gql;
 mod routes;
 
+use tracing::{info, span, Level};
+
 #[tokio::main]
 async fn start() -> anyhow::Result<()> {
     env::set_var("RUST_LOG", "debug");
@@ -31,6 +33,7 @@ async fn start() -> anyhow::Result<()> {
     let listener = tokio::net::TcpListener::bind(&server_url).await.unwrap();
     axum::serve(listener, app).await?;
 
+    info!("Server started at http://{server_url}");
     Ok(())
 }
 

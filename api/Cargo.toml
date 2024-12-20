@@ -21,3 +21,4 @@ migration = { path = "../migration" }
 entity = { path = "../entity" }
 schema = { path = "../schema" }
 anyhow = "1.0.94"
+tracing = "0.1.41"
